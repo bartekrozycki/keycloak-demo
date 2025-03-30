@@ -1,0 +1,31 @@
+name: "keycloak-demo"
+services:
+  db:
+    image: postgres:17
+    restart: always
+    # set shared memory limit when using docker-compose
+    ports:
+      - "5432:5432"
+    shm_size: 128mb
+    env_file:
+      - postgres.env
+    volumes:
+      - ./init-databases.sql:/docker-entrypoint-initdb.d/init-databases.sql
+      - './postgresql_data:/var/lib/postgresql/data'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d keycloak_db" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - "8080:8080"
+    command: start-dev
+    env_file:
+      - keycloak.env
+    depends_on:
+      db:
+        condition: service_healthy

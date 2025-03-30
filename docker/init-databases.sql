@@ -1,2 +1,0 @@
-CREATE DATABASE app_db;
-CREATE DATABASE keycloak_db;
