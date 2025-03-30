@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 class="form-signin-heading">wppl 2k25</h1>
+  <div th:if="${!isAuthenticated}">
+    <a href="/oauth2/authorization/keycloak"><button type="button"
+                                                     class="btn btn-lg btn-primary btn-block">Login</button></a>
+  </div>
+  <div th:if="${isAuthenticated}">
+    <p>Hi <span th:utext="${name}">..!..</span>!</p>
+    <p>idtoken <span th:utext="${idToken}">..!..</span>!</p>
+    <p>accessToken <span th:utext="${accessToken}">..!..</span>!</p>
+    <a href="/logout"><button type="button" class="btn btn-lg btn-primary">Logout</button></a>
+    <a th:if="${isNice}" href="/nice">
+      <button type="button" class="btn btn-lg btn-primary">Browse to NICE users page</button></a>
+  </div>
+</div>
