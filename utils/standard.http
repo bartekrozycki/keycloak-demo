@@ -1,0 +1,32 @@
+### Wrong client used
+POST http://localhost:8080/realms/internal/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password
+    &client_id=technicalInternal
+    &client_secret=wppl2
+    &username=alicja
+    &password=alicja
+
+
+### (Standard) Get Token via Password Grant
+POST http://localhost:8080/realms/internal/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password
+    &client_id=directGrantInternal
+    &client_secret=wppl2
+    &username=alicja
+    &password=alicja
+    &scope=profile
+> {%
+  client.global.set("access_token", response.body.access_token)
+%}
+
+### (Standard) Get Token via Client Credentials Grant
+POST http://localhost:8080/realms/internal/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+    &client_id=technicalInternal
+    &client_secret=wppl2

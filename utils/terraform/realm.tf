@@ -1,8 +1,8 @@
 resource "keycloak_realm" "realm" {
-  realm             = "terraform"
+  realm             = "internal"
   enabled           = true
-  display_name      = "terraform"
-  display_name_html = "<b>terraform</b>"
+  display_name      = "internal"
+  display_name_html = "<b>internal</b>"
 
   login_theme = "keycloak.v2"
 
@@ -19,13 +19,13 @@ resource "keycloak_realm" "realm" {
   registration_email_as_username = false
 }
 
-resource "keycloak_openid_client" "myClient" {
+resource "keycloak_openid_client" "oidcInternal" {
   realm_id    = keycloak_realm.realm.id
-  name        = "my-client-terraform"
-  description = "myClient"
+  name        = "my-client-internal"
+  description = "internal"
 
-  client_id     = "myClient"
-  client_secret = "Py3ogB0RO389QsfH00yQBkWP1qeOu0Pf"
+  client_id     = "oidcInternal"
+  client_secret = "wppl2"
 
   enabled     = true
   access_type = "CONFIDENTIAL"
@@ -36,13 +36,29 @@ resource "keycloak_openid_client" "myClient" {
   web_origins = ["*"]
 }
 
-resource "keycloak_openid_client" "myBackendClient" {
+resource "keycloak_openid_client" "directGrantInternal" {
   realm_id    = keycloak_realm.realm.id
-  name        = "my-app-client"
+  name        = "direct-grant-internal"
+  description = "internal"
+
+  client_id     = "directGrantInternal"
+  client_secret = "wppl2"
+
+  enabled     = true
+  access_type = "CONFIDENTIAL"
+
+  direct_access_grants_enabled = true
+
+  web_origins = ["*"]
+}
+
+resource "keycloak_openid_client" "technicalInternal" {
+  realm_id    = keycloak_realm.realm.id
+  name        = "my-app-internal"
   description = "myAppClient"
 
-  client_id     = "myAppClient"
-  client_secret = "kfASasd412ks;fdLADFfmds%124agmsd"
+  client_id     = "technicalInternal"
+  client_secret = "wppl2"
 
   enabled     = true
   access_type = "CONFIDENTIAL"

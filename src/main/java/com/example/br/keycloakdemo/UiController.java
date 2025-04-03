@@ -1,6 +1,5 @@
 package com.example.br.keycloakdemo;
 
-import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

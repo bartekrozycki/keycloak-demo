@@ -1,0 +1,24 @@
+### (Standard) Get Token via Password Grant
+POST http://localhost:8080/realms/internal/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password
+    &client_id=directGrantInternal
+    &client_secret=wppl2
+    &username=alicja
+    &password=alicja
+> {%
+  client.global.set("access_token", response.body.access_token)
+%}
+
+### (Token-Exchange) Offline Token
+# https://www.keycloak.org/securing-apps/token-exchange
+POST http://localhost:8080/realms/internal/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:token-exchange
+    &client_id=directGrantInternal
+    &client_secret=wppl2
+    &subject_token={{access_token}}
+    &requested_token_type=urn:ietf:params:oauth:token-type:refresh_token
+    &scope=offline_access
